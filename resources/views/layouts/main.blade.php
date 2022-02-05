@@ -6,10 +6,12 @@
 
     <!-- rel css external file  -->
     <link rel="stylesheet" href="{{ URL::to('/') }}/css/about-style-sheet.css">
+    <link rel="stylesheet" href="{{ URL::to('/') }}/css/register-style-sheet.css">
     <link rel="stylesheet" href="{{ URL::to('/') }}/css/alert-box-style-sheet.css">
     <link rel="stylesheet" href="{{ URL::to('/') }}/css/loaders-style-sheet.css">
     <link rel="stylesheet" href="{{ URL::to('/') }}/css/bottom-bar-style-sheet.css">
     <link rel="stylesheet" href="{{ URL::to('/') }}/css/main-body-style-sheet.css">
+    <link rel="stylesheet" href="{{ URL::to('/') }}/css/login-style-sheet.css">
 
     <link rel="icon" href="{{ URL::to('/') }}/image/logo/android-chrome-512x512.png"/>
 
