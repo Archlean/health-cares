@@ -1,0 +1,28 @@
+.bottom-bar-style {
+    -webkit-user-select: none;
+    -webkit-touch-callout: none;
+    -moz-user-select: none;
+    -ms-user-select: none;
+    user-select: none;
+
+    overflow: hidden;
+    position: fixed;
+    height: 30px; 
+    width: 100%;
+    align-items:center; 
+    background-color: black; 
+    width: 100%; 
+    bottom: 0; 
+}
+
+.bottom-bar-text-wrapper {
+    position: fixed; 
+    margin: 5px;
+    right: 0; 
+    width: fit-content;
+}
+
+.bottom-bar-text {
+    font-size: 14px; 
+    color: azure;
+}
