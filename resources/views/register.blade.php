@@ -35,9 +35,9 @@
                 Register your account for full access!
             </span>
         </div>
-        <div style="display: flex; margin: 20%; margin-top: -50px;">
-            <p style="text-align: center; margin: 10px; margin-top: 5px; color: azure;">Already have an account?</p>
-            <a style="margin: 10px; margin-top: 5px; text-align: center; margin-left: -5px;" href="/login">Sign in now!</a>
+        <div style="display: flex; margin: 25%; margin-top: -50px;">
+            <p style="text-align: center; margin: 10px; margin-top: 5px; color: azure;">Have an account?</p>
+            <a style="margin: 10px; margin-top: 5px; margin-left: -5px; text-align: center" href="/login">Sign in now!</a>
         </div>
     </div>
 @endsection
