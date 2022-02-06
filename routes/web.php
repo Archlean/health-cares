@@ -7,6 +7,9 @@ use App\Http\Controllers\AboutController;
 use App\Http\Controllers\LoginController;
 use App\Http\Controllers\RegisterController;
 use App\Http\Controllers\DashboardController;
+use App\Http\Controllers\RecipeController;
+use App\Http\Controllers\CartController;
+use App\Http\Controllers\MedicineController;
 use Faker\Guesser\Name;
 
 /*
@@ -34,3 +37,8 @@ Route::get('/register', [RegisterController::class, 'index'])->middleware('guest
 Route::post('/register', [RegisterController::class, 'save'])->middleware('guest');
 
 Route::get('/dashboard', [DashboardController::class, 'index'])->middleware('auth');
+Route::get('/recipe', [RecipeController::class, 'index'])->middleware('auth');
+Route::get('/cart', [CartController::class, 'index'])->middleware('auth');
+Route::get('/new-recipe', [RecipeController::class, 'recipeMixer'])->middleware('auth');
+Route::get('/medicine-list', [MedicineController::class, 'index'])->middleware('auth');
+Route::get('/medicine-list/search', [MedicineController::class, 'findMedicine'])->middleware('auth');

@@ -14,6 +14,7 @@
     <link rel="stylesheet" href="{{ URL::to('/') }}/css/about-style-sheet.css">
     <link rel="stylesheet" href="{{ URL::to('/') }}/css/register-style-sheet.css">
     <link rel="stylesheet" href="{{ URL::to('/') }}/css/login-style-sheet.css">
+    <link rel="stylesheet" href="{{ URL::to('/') }}/css/webkit.css">
 
     <link rel="icon" href="{{ URL::to('/') }}/image/logo/android-chrome-512x512.png"/>
 
@@ -34,11 +35,6 @@
     <div class="container mt-4">
         @yield('container')
     </div>
-
-    <div class="bottom-bar-style">
-      <div class="bottom-bar-text-wrapper">
-        <p class="bottom-bar-text">@2022</p>
-      </div>
-    </div>
+    
   </body>
 </html>

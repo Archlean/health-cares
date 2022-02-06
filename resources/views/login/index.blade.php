@@ -12,13 +12,13 @@
       @endif
 
       @if (session()->has('Error-Login'))
-      <div class="alert alert-errors alert-dismissible fade show d-flex justify-content-center" style="height: fit-content; width:fit-content" role="alert">
-        <small class="d-block text-center"> {{ session('Error-Login') }} </small>
-        <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
-      </div>
-    @endif
+        <div class="alert alert-errors alert-dismissible fade show d-flex justify-content-center" style="height: fit-content; width:fit-content" role="alert">
+          <small class="d-block text-center"> {{ session('Error-Login') }} </small>
+          <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+        </div>
+      @endif
 
-      <main class="form-signin bg-opacity-50">
+      <main class="form-signin bg-opacity-50 mt-100">
         <h1 class="h3 mb-3 fw-normal text-center">Login</h1>
         <form action="/login" method="post">
           @csrf

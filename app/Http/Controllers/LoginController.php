@@ -20,7 +20,7 @@ class LoginController extends Controller
         if (Auth::attempt($credentials)) {
             $request->session()->regenerate();
 
-            return redirect()->intended('/dashboard');
+            return redirect()->intended('/recipe');
         }
 
         return back()->with('Error-Login', 'Login failled, e-mail or password may be wrong!');

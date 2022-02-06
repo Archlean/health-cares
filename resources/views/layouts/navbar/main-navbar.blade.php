@@ -23,17 +23,17 @@
 
         <ul class="navbar-nav">
             <li class="nav-item">
-                <a class="nav-link {{ $routes === "Products" ? 'active' : '' }}" href="/products"><i class="bi bi-box-seam"></i> | Products</a>
+                <a class="nav-link {{ $routes === "Recipe" || $routes === "Medicine List" || $routes === "New Recipe" ? 'active' : '' }}" href="/recipe"><i class="bi bi-receipt"></i> | Recipe</a>
             </li>
         </ul>
         
-        <li class="nav-item dropdown ms-auto">
+        <li class="nav-item dropdown ms-auto mb-3">
             <a class="nav-link dropdown-toggle" href="/" id="navbarDropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">
                 <i class="bi bi-person-circle"></i> | Welcome Back, {{ auth()->user()->name }}
             </a>
             <ul class="dropdown-menu" aria-labelledby="navbarDropdown">
-              <li><a class="dropdown-item" href="/dashboard"><i class="bi bi-archive"></i> | Dashboard</a></li>
-              <li><a class="dropdown-item" href="/"><i class="bi bi-cart-check"></i> | Cart</a></li>
+              <!-- <li><a class="dropdown-item" href="/dashboard"><i class="bi bi-archive"></i> | Dashboard</a></li> -->
+              <li><a class="dropdown-item" href="/cart"><i class="bi bi-list-task"></i> | My recipes</a></li>
               <li><hr class="dropdown-divider"></li>
               <li>
                   <form action="/logout" method="post">
@@ -50,7 +50,7 @@
 
         <ul class="navbar-nav ms-auto">
             <li class="nav-item">
-                <a class="nav-link {{ $routes === "Login" ? 'active' : '' }}" href="/login"><i class="bi bi-box-arrow-in-right"></i> | Login</a>
+                <a class="nav-link {{ $routes === "Login" || $routes === "Register" ? 'active' : '' }}" href="/login"><i class="bi bi-box-arrow-in-right"></i> | Login</a>
             </li>
         </ul>
 
