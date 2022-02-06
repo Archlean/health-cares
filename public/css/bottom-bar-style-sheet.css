@@ -6,7 +6,7 @@
     user-select: none;
 
     overflow: hidden;
-    position: fixed;
+    position: absolute;
     height: 30px; 
     width: 100%;
     align-items:center; 

@@ -1,6 +1,13 @@
 <?php
 
 use Illuminate\Support\Facades\Route;
+use App\Http\Controllers\HomeController;
+use App\Http\Controllers\FeedsController;
+use App\Http\Controllers\AboutController;
+use App\Http\Controllers\LoginController;
+use App\Http\Controllers\RegisterController;
+use App\Http\Controllers\DashboardController;
+use Faker\Guesser\Name;
 
 /*
 |--------------------------------------------------------------------------
@@ -13,22 +20,17 @@ use Illuminate\Support\Facades\Route;
 |
 */
 
-Route::get('/', function () {
-    return view('home', ['routes' => 'Home']);
-});
+Route::get('/', [HomeController::class, 'index']);
 
-Route::get('/login', function () {
-    return view('login', ['routes' => 'Login']);
-});
+Route::get('/about', [AboutController::class, 'index']);
 
-Route::get('/register', function () {
-    return view('register', ['routes' => 'Register']);
-});
+Route::get('/feeds', [FeedsController::class, 'index']);
 
-Route::get('/about', function () {
-    return view('about', ['routes' => 'About']);
-});
+Route::get('/login', [LoginController::class, 'index'])->name('login')->middleware('guest');
+Route::post('/login', [LoginController::class, 'authentication'])->middleware('guest');
+Route::post('/logout', [LoginController::class, 'logout'])->middleware('auth');
 
-Route::get('/feeds', function () {
-    return view('feeds', ['routes' => 'Feeds']);
-});
+Route::get('/register', [RegisterController::class, 'index'])->middleware('guest');
+Route::post('/register', [RegisterController::class, 'save'])->middleware('guest');
+
+Route::get('/dashboard', [DashboardController::class, 'index'])->middleware('auth');
