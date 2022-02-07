@@ -23,10 +23,11 @@ first of all your localhost will need laravel framework to able run or deploy th
 # Database Configuration
 this repository environment need db connetion to mysql you can use phpmyadmin or mysql workbrench use what you feel comfotable
   1. open your xampp or similar application and start to mysql service
-  2. set up your dns ipv4 and ipv6 with localhost 127.0.0.1
-  3. default environment port of the project is 3306 just in case if your localhost have a different port of mysql service
-  4. create schema or database with name health_care and import table inside raw-database folder on root directory
-  5. now you are good to go
+  2. set up your dns ipv4 {127.0.0.1} and ipv6 {::1}
+  3. change your apache configuration port to 80 if you using xampp you only need to open xampp and open config on apache section and search the port 80 or you can use ctrl + f and type 80 and find the line with "Listen 80" change the line to "Listen 8080" and another line with "Servername localhost 80" change the line to "Servername localhost 8080"
+  4. default environment port of the project is 3306 just in case if your localhost have a different port of mysql service
+  5. create schema or database with name health_care and import table inside raw-database folder on root directory
+  6. now you are good to go
     
 # Valet
     alternative valet package you can access it at packagist.org and search for valet package
