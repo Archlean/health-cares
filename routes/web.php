@@ -37,8 +37,16 @@ Route::get('/register', [RegisterController::class, 'index'])->middleware('guest
 Route::post('/register', [RegisterController::class, 'save'])->middleware('guest');
 
 Route::get('/dashboard', [DashboardController::class, 'index'])->middleware('auth');
-Route::get('/recipe', [RecipeController::class, 'index'])->middleware('auth');
+Route::get('/recipe', [RecipeController::class, 'recipeMixer'])->middleware('auth');
 Route::get('/cart', [CartController::class, 'index'])->middleware('auth');
-Route::get('/new-recipe', [RecipeController::class, 'recipeMixer'])->middleware('auth');
+Route::get('/new-recipe', [RecipeController::class, 'index'])->middleware('auth');
+Route::get('/new-recipe/include/{obatalkes_id}', [RecipeController::class, 'recipeMixerData'])->middleware('auth');
+Route::get('/new-recipe/recipe-non-concoction', [RecipeController::class, 'createRecipeNconcoction'])->middleware('auth');
+Route::get('/new-recipe/recipe-concoction', [RecipeController::class, 'createRecipeConcoction'])->middleware('auth');
 Route::get('/medicine-list', [MedicineController::class, 'index'])->middleware('auth');
 Route::get('/medicine-list/search', [MedicineController::class, 'findMedicine'])->middleware('auth');
+Route::get('/medicine-list/config-medicine/{obatalkes_id}', [MedicineController::class, 'configMedicine'])->middleware('auth');
+Route::get('/medicine-list/find-receipt', [MedicineController::class, 'findMedicine'])->middleware('auth');
+
+Route::post('/new-recipe/save/{category}', [RecipeController::class, 'saveRecipe'])->middleware('auth');
+Route::post('/medicine/save-new', [MedicineController::class, 'saveSchema'])->middleware('auth');

@@ -20,4 +20,8 @@ class Recipe extends Model
     protected $guarded = [
         'id'
     ];
+
+    public function getRouteKeyName(){
+        return 'username';
+    }
 }

@@ -8,4 +8,8 @@ class ObAlkes extends Model
 {
     //use HasFactory;
     protected $table = 'obatalkes_m';
+    
+    public function getRouteKeyName(){
+        return 'obatalkes_id';
+    }
 }
