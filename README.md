@@ -29,6 +29,7 @@ this repository environment need db connetion to mysql you can use phpmyadmin or
   5. now you are good to go
     
 # Valet
+    alternative valet package you can access it at packagist.org and search for valet package
 now this may become shortcut since you will no need to use apache virtual host anymore and you can directly open the project on browser with only the directory example: health-cares.test and the application will run automoticly on your localhost
   1. type composer global laravel/valet on your terminal
   2. after the proccess finish type valet install and wait again
