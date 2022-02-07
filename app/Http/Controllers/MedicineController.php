@@ -50,11 +50,9 @@ class MedicineController extends Controller
             'username' => auth()->user()->username,
             'category' => $retrieveData['category'],
             'recipe_name' => $retrieveData['recipename'],
-            'recipe_detail' => implode(", ", [
-                'code' => $retrieveData['medcode'],
-                'quantity' => $retrieveData['quantity'],
-                'signa' => $retrieveData['signa']
-            ])
+            'signa_recipe' => $retrieveData['signa'],
+            'quantity' => $retrieveData['quantity'],
+            'recipe_detail' => $Items[0]->obatalkes_nama
         ];
         
         $stok = intval($Items[0]->stok);

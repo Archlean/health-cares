@@ -15,6 +15,8 @@ class Recipe extends Model
         'category',
         'recipe_name',
         'recipe_detail',
+        'signa_recipe',
+        'quantity'
     ];
 
     protected $guarded = [

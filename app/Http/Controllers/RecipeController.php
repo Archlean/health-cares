@@ -42,10 +42,11 @@ class RecipeController extends Controller
             'category' => 'Concoction',
             'recipe_name' => $retrieveData['recipename'],
             'recipe_detail' => '',
+            'quantity' => '1',
             'signa_recipe' => $retrieveData['signa'],
         ];
         
         Recipe::create($fewsData);
-        return redirect('/recipt')->with('recipe-post-success','Successfull to add new recipes with sheet name ' . $retrieveData['recipename']);
+        return redirect('/recipe')->with('recipe-post-success','Successfull to add new recipes with sheet name ' . $retrieveData['recipename']);
     }
 }
