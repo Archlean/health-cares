@@ -12,7 +12,7 @@ class MedicineController extends Controller
     public function index(){
         $Items = ObAlkes::paginate(27);
         $userRecipe = Recipe::where('username', auth()->user()->username)->get();
-        return view('medicine.index', ['routes' => 'Medicine List', 'items' => $Items, 'userRecipe' => $userRecipe, 'overlay' => '', 'signa' => SignaMaster::orderBy('signa_nama')->get()]);
+        return view('medicine.index', ['routes' => 'Medicine List', 'items' => $Items, 'userRecipe' => $userRecipe, 'overlay' => '', 'signa' => SignaMaster::orderBy('signa_nama')->get(), 'views' => 'ALL']);
     }
 
     public function findMedicine(Request $request){
@@ -21,19 +21,19 @@ class MedicineController extends Controller
         ]);
         $Items = ObAlkes::where('obatalkes_nama', 'LIKE', '%'.$data['text'].'%')->paginate(27);
         $userRecipe = Recipe::where(['username' => auth()->user()->username, 'category' => 'Concoction'])->get();
-        return view('medicine.index', ['routes' => 'Medicine List', 'items' => $Items, 'userRecipe' => $userRecipe, 'overlay' => '', 'signa' => SignaMaster::orderBy('signa_nama')->get()]);
+        return view('medicine.index', ['routes' => 'Medicine List', 'items' => $Items, 'userRecipe' => $userRecipe, 'overlay' => '', 'signa' => SignaMaster::orderBy('signa_nama')->get(), 'views' => 'ALL']);
     }
 
-    public function configMedicine($obatalkes_id){
+    public function viewsMedicine($obatalkes_id){
         $Items = ObAlkes::where('obatalkes_id', $obatalkes_id)->paginate(27);
         $userRecipe = Recipe::where(['username' => auth()->user()->username, 'category' => 'Concoction'])->get();
-        return view('medicine.index', ['routes' => 'Medicine List', 'items' => $Items, 'userRecipe' => $userRecipe, 'overlay' => 'new', 'signa' => SignaMaster::orderBy('signa_nama')->get()]);
+        return view('medicine.index', ['routes' => 'Medicine List', 'items' => $Items, 'userRecipe' => $userRecipe, 'overlay' => 'new', 'signa' => SignaMaster::orderBy('signa_nama')->get(), 'views' => 'ALL']);
     }
     
     public function PutMedicine($obatalkes_id){
         $Items = ObAlkes::where('obatalkes_id', $obatalkes_id)->paginate(27);
         $userRecipe = Recipe::where(['username' => auth()->user()->username, 'category' => 'Concoction'])->get();
-        return view('medicine.index', ['routes' => 'Medicine List', 'items' => $Items, 'userRecipe' => $userRecipe, 'overlay' => 'existing', 'signa' => SignaMaster::orderBy('signa_nama')->get()]);
+        return view('medicine.index', ['routes' => 'Medicine List', 'items' => $Items, 'userRecipe' => $userRecipe, 'overlay' => 'existing', 'signa' => SignaMaster::orderBy('signa_nama')->get(), 'views' => 'ALL']);
     }
 
     public function saveSchema(Request $request){
@@ -66,5 +66,12 @@ class MedicineController extends Controller
     
     public function ConSchema(Request $request){
         
+    }
+
+    public function singleMedicineInfo($obatalkes_id){
+        $Items = ObAlkes::where('obatalkes_id', $obatalkes_id)->get();
+        $userRecipe = Recipe::where(['username' => auth()->user()->username, 'category' => 'Concoction'])->get();
+        
+        return view('medicine.index', ['routes' => 'Medicine List', 'items' => $Items, 'userRecipe' => $userRecipe, 'overlay' => '', 'signa' => SignaMaster::orderBy('signa_nama')->get(), 'views' => 'SPECIFIC']);
     }
 }

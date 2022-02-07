@@ -10,7 +10,6 @@
                 <th scope="col">#</th>
                 <th scope="col">Category</th>
                 <th scope="col">Recipe Title</th>
-                <th scope="col">Recipe Detail</th>
                 <th scope="col">Signa Recipe</th>
                 <th scope="col">Quantity</th>
                 <th scope="col">Action</th>
@@ -22,7 +21,6 @@
                   <td>{{ $myrecipe->id }}</td>
                   <td>{{ $myrecipe->category }}</td>
                   <td>{{ $myrecipe->recipe_name }}</td>
-                  <td>{{ $myrecipe->recipe_detail }}</td>
                   <td>{{ $myrecipe->signa_recipe }}</td>
                   <td>{{ $myrecipe->quantity }}</td>
                 </tr>
