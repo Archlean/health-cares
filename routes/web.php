@@ -49,4 +49,5 @@ Route::get('/medicine-list/config-medicine/{obatalkes_id}', [MedicineController:
 Route::get('/medicine-list/find-receipt', [MedicineController::class, 'findMedicine'])->middleware('auth');
 
 Route::post('/new-recipe/save/{category}', [RecipeController::class, 'saveRecipe'])->middleware('auth');
+Route::post('/new-recipe/save', [RecipeController::class, 'saveRecipeOnly'])->middleware('auth');
 Route::post('/medicine/save-new', [MedicineController::class, 'saveSchema'])->middleware('auth');

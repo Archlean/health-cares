@@ -19,6 +19,7 @@ class CreateRecipesTable extends Migration
             $table->string('category');
             $table->string('recipe_name');
             $table->text('recipe_detail');
+            $table->string('signa_recipe');
             $table->timestamps();
         });
     }
