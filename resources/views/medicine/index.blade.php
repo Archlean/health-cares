@@ -8,222 +8,62 @@
             <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
             </div>
         @endif
-        @if ($overlay == 'new')
+
+        @if ($overlay == 'new recipe')
             <div style="position: fixed; color:white; width: 100%; height: 100%; top: 0; left: 0; right: 0; bottom: 0; background-color: rgba(0,0,0,0.9); z-index: 2;">
-                <div class="row-lg-3 w-100">
-                    <main class="form-registration mt-1">    
-                        <form action="/medicine/save-new" method="post" class="hstack gap-2 mb-4">
-                            @csrf
-                            <div class="card mb-5">
-                                <img src="https://source.unsplash.com/800x400?{{ $items[0]->obatalkes_nama }}" class="card-img-top" alt="...">
-                                <div class="card-body">
-                                    <h5 class="card-title text-dark">{{ $items[0]->obatalkes_nama }}</h5>
-                                    <div class="container">
-                                        <div class="row">
-                                            <div class="col-lg-4">
-                                                <p class="text-dark">Medicine Code</p>
-                                                <div class="form-floating">
-                                                    <input readonly type="text" name="medcode" class="form-control" id="medcode" value="{{ $items[0]->obatalkes_kode }}" placeholder="medcode" required>
-                                                    <label class="text-dark" for="medcode">M-Code</label>
-                                                </div>
+                <div class="container">
+                    <div class="card">
+                        <div class="card-title mt-3">
+                            <h1><strong>Create your sheet recipe</strong></h1>
+                        </div>
+                        <div class="card-body">
+                            <main class="form-registration mt-1">    
+                                <form action="/new-recipe/save" method="post" class="hstack gap-2 mb-4">
+                                    @csrf
+                                    <div class="card mb-3">
+                                        <img src="https://source.unsplash.com/800x400?storage" class="card-img-top" alt="...">
+                                        <div class="card-body">
+                                            <h5 class="card-title text-dark">Create new {{ $routes }} recipes</h5>
+                                            <div class="form-floating">
+                                                <input type="text" name="recipename" class="form-control" id="recipename" placeholder="recipe name" required">
+                                                <label class="text-dark" for="recipename">Recipe name</label>
                                             </div>
-                                            <div class="col-lg-4">
-                                                <p class="text-dark">Categoty</p>
-                                                <div class="input-group mb-3">
-                                                    <select class="form-select" id="category" name='category'>
-                                                        <option value="Non Concoction"">Non Concoction</option>
-                                                        <option value="Concoction"">Concoction</option>
-                                                    </select>
-                                                </div>
-                                            </div>
-                                            <div class="col-lg-4">
-                                                <p class="text-dark">Sheet name</p>
-                                                <div class="form-floating">
-                                                    <input type="text" name="recipename" class="form-control @error('recipename') is-invalid @enderror" id="recipename" placeholder="recipe name" required">
-                                                    <label class="text-dark" for="recipename">Sheet name</label>
-                                                    @error('recipename')
-                                                        <div class="invalid-feedback">{{ $message }}</div>
-                                                    @enderror
-                                                </div>
-                                            </div>
-                                        </div>
-                                    </div>
-                                    
-                                    <div class="container mt-2">
-                                        <div class="row">
-                                            <div class="col-lg-4">
-                                                <p class="text-dark">Quantity:</p>
-                                                <div class="input-group mb-3">
-                                                    <button class="btn bg-danger ms-auto text-white" onclick="decrement()" type="button">
-                                                            -
-                                                            <script>
-                                                                function decrement(){
-                                                                    var maxLimit = parseInt(document.getElementById("quantity").max);
-                                                                    var currentNumber = parseInt(document.getElementById("quantity").value);
-                                                                    if (currentNumber > 1){
-                                                                        currentNumber--;
-                                                                    }
-                                                                    else if (currentNumber > maxLimit){
-                                                                        currentNumber = maxLimit;
-                                                                    }
-                                                                    else if (currentNumber < 1){
-                                                                        currentNumber = 1;
-                                                                    }
-                                                                    document.getElementById("quantity").value = currentNumber;
-                                                                }
-                                                            </script>
-                                                        </button>
-                                                    <input readonly type="text" id="quantity" name="quantity" placeholder="quantity" class="form-control input-number w-20" value="1" min="1" max="{{ intval($items[0]->stok) }}">
-                                                    <button class="btn bg-primary text-white" onclick="increment()" type="button">
-                                                            +
-                                                            <script>
-                                                                function increment(){
-                                                                    var maxLimit = parseInt(document.getElementById("quantity").max);
-                                                                    var currentNumber = parseInt(document.getElementById("quantity").value);
-                                                                    if (currentNumber < maxLimit){
-                                                                        currentNumber++;
-                                                                    }
-                                                                    else if (currentNumber < 1){
-                                                                        currentNumber = 1;
-                                                                    }
-                                                                    else if (currentNumber > maxLimit){
-                                                                        currentNumber = maxLimit;
-                                                                    }
-                                                                    document.getElementById("quantity").value = currentNumber;
-                                                                }
-                                                            </script>
-                                                    </button>
-                                                </div>
-                                            </div>
-                                            <div class="col-lg-8">
-                                                <p class="text-dark">Signa:</p>
-                                                <div class="input-group mb-3">
-                                                    <select class="form-select @error('signa') is-invalid @enderror" id="signa" name='signa'>
-                                                      @foreach ($signa as $sign)
+                                            <p class="text-dark mt-4">Signa:</p>
+                                            <div class="input-group mb-3">
+                                                <select class="form-select" id="signa" name='signa'>
+                                                    @foreach ($signa as $sign)
                                                         <option value="{{ $sign->signa_nama }}">{{ $sign->signa_nama }}</option>
-                                                      @endforeach
-                                                    </select>
-                                                    @error('signa')
-                                                        <div class="invalid-feedback">{{ $message }}</div>
-                                                    @enderror
-                                                </div>
+                                                    @endforeach
+                                                </select>
                                             </div>
+                                            <button class="w-100 btn btn-lg btn-primary mt-2" type="submit">Add Recipe</button>
+                                            <a href="/recipe" class="text-danger">Back</a>
                                         </div>
                                     </div>
-                                    <p class="card-text text-dark">Stock available {{ intval($items[0]->stok) }}
-                                    </p>
-                                    <button class="w-100 btn btn-lg btn-primary mt-2" type="submit">Add Medicine</button>
-                                    <a href="/medicine-list" class="text-danger">Back</a>
-                                </div>
-                            </div>
-                        </form>
-                    </main>
+                                </form>
+                            </main>
+                        </div>
+                    </div>
                 </div>
             </div>
         @endif
-        
-        @if ($overlay == 'existing')
+        @if ($overlay == 'existing recipe')
+            
             <div style="position: fixed; color:white; width: 100%; height: 100%; top: 0; left: 0; right: 0; bottom: 0; background-color: rgba(0,0,0,0.9); z-index: 2;">
-                
-                <div class="row-mb-3 justify-content-center">
-                    <main class="form-registration mt-1">    
-                        <form action="/new-recipe/include/{{ $items[0]->obatalkes_id }}" method="get" class="hstack gap-2 mb-4">
-                            @csrf
-                            <div class="card mb-3">
-                                <img src="https://source.unsplash.com/800x400?{{ $items[0]->obatalkes_nama }}" class="card-img-top" alt="...">
-                                <div class="card-body">
-                                    <h5 class="card-title text-dark">a{{ $items[0]->obatalkes_nama }}</h5>
-                                    <div class="container">
-                                        <div class="row">
-                                            <div class="col-lg-5">
-                                                <p class="text-dark">Categoty</p>
-                                                <div class="input-group mb-3">
-                                                    <select class="form-select" id="signa" name='signa'>
-                                                        <option value="Concoction"">Concoction</option>
-                                                        <option value="Non Concoction"">Non Concoction</option>
-                                                    </select>
-                                                </div>
-                                            </div>
-                                            <div class="col-lg-7">
-                                                <p class="text-dark">Sheet name</p>
-                                                <div class="form-floating">
-                                                    <input type="text" name="recipename" class="form-control" id="recipename" placeholder="recipe name" required">
-                                                    <label class="text-dark" for="recipename">Sheet name</label>
-                                                </div>
-                                            </div>
-                                        </div>
-                                    </div>
-                                    
-                                    <div class="container">
-                                        <div class="row">
-                                            <div class="col-lg-4">
-                                                <p class="text-dark">Quantity:</p>
-                                                <div class="input-group mb-3">
-                                                    <button class="btn bg-danger ms-auto text-white" onclick="decrement()" type="button">
-                                                            -
-                                                            <script>
-                                                                function decrement(){
-                                                                    var maxLimit = parseInt(document.getElementById("quantity").max);
-                                                                    var currentNumber = parseInt(document.getElementById("quantity").value);
-                                                                    if (currentNumber > 1){
-                                                                        currentNumber--;
-                                                                    }
-                                                                    else if (currentNumber > maxLimit){
-                                                                        currentNumber = maxLimit;
-                                                                    }
-                                                                    else if (currentNumber < 1){
-                                                                        currentNumber = 1;
-                                                                    }
-                                                                    document.getElementById("quantity").value = currentNumber;
-                                                                }
-                                                            </script>
-                                                        </button>
-                                                    <input readonly type="text" id="quantity" name="quantity" placeholder="quantity" class="form-control input-number w-20" value="1" min="1" max="{{ intval($items[0]->stok) }}">
-                                                    <button class="btn bg-primary text-white" onclick="increment()" type="button">
-                                                            +
-                                                            <script>
-                                                                function increment(){
-                                                                    var maxLimit = parseInt(document.getElementById("quantity").max);
-                                                                    var currentNumber = parseInt(document.getElementById("quantity").value);
-                                                                    if (currentNumber < maxLimit){
-                                                                        currentNumber++;
-                                                                    }
-                                                                    else if (currentNumber < 1){
-                                                                        currentNumber = 1;
-                                                                    }
-                                                                    else if (currentNumber > maxLimit){
-                                                                        currentNumber = maxLimit;
-                                                                    }
-                                                                    document.getElementById("quantity").value = currentNumber;
-                                                                }
-                                                            </script>
-                                                    </button>
-                                                </div>
-                                            </div>
-                                            <div class="col-lg-8">
-                                                <p class="text-dark">Signa:</p>
-                                                <div class="input-group mb-3">
-                                                    <label class="input-group-text" for="inputGroupSelect01">Notes</label>
-                                                    <select class="form-select" id="signa" name='signa'>
-                                                      <option selected>Choose...</option>
-                                                      @foreach ($signa as $sign)
-                                                        <option value="{{ $sign->signa_nama }}">{{ $sign->signa_nama }}</option>
-                                                      @endforeach
-                                                    </select>
-                                                </div>
-                                            </div>
-                                        </div>
-                                    </div>
-                                    <p class="card-text text-dark">Stock available {{ intval($items[0]->stok) }}
-                                    </p>
-                                    <button class="w-100 btn btn-lg btn-primary mt-2" type="submit">Add Medicine</button>
-                                    <a href="/medicine-list" class="text-danger">Back</a>
-                                </div>
-                            </div>
-                        </form>
-                    </main>
+                <div class="container">
+                    <h1>Select the recipe you want</h1>
                 </div>
             </div>
+
+        @endif
+        @if ($overlay == 'non recipe')
+            
+            <div style="position: fixed; color:white; width: 100%; height: 100%; top: 0; left: 0; right: 0; bottom: 0; background-color: rgba(0,0,0,0.9); z-index: 12;">
+                <div class="container">
+                    <h1>{{ $aVData }}</h1>
+                </div>
+            </div>
+            
         @endif
 
         <h1 class="mb-5 text-center"> {{ $routes }} | Explore our extensive medicine </h1>
@@ -296,7 +136,7 @@
                                                     <h5 class="text-center"><small>select order</small></h5>
                                                 </div>
                                                 <main>
-                                                    <form action="/medicine-list/info/order-save/{{ $items[0]->obatalkes_id }} method="post">
+                                                    <form action="/medicine-list/info/order-save" method="post">
                                                         @csrf
                                                         <div class="card-body">
                                                             <div class="form-check">
@@ -366,6 +206,9 @@
                                                                     @enderror
                                                                 </div>
                                                             </div>
+                                                            <div class="mb-2">
+                                                                <input type="text" readonly disabled hidden value="{{ $items[0]->obatalkes_id }}" name="id" placeholder="id" id="id">
+                                                            </div>
                                                             <button class="w-100 btn btn-lg btn-primary" type="submit">Order</button>
                                                         </div>
                                                     </form>
@@ -384,7 +227,7 @@
                                                     <h5 class="text-center"><small>select order</small></h5>
                                                 </div>
                                                 <main>
-                                                    <form action="/medicine-list/info/order-save/{{ $items[0]->obatalkes_id }} method="post">
+                                                    <form action="/medicine-list/info/order-save/" method="get">
                                                         @csrf
                                                         <div class="card-body">
                                                             <div class="form-check">
@@ -492,7 +335,7 @@
                             </div>
                             
                             <div class="col-md-2">
-                                <a href="/medicine-list" class="btn btn-primary mt-1 w-100 fs-4 mb-1"><small>Reset</small> </a>
+                                <a href="/medicine-list" class="btn btn-primary mt-1 w-100 fs-4 mb-1"><small>All List</small> </a>
                             </div>
                         </form>
                     </div>

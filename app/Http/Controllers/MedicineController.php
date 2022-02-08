@@ -21,19 +21,19 @@ class MedicineController extends Controller
         ]);
         $Items = ObAlkes::where('obatalkes_nama', 'LIKE', '%'.$data['text'].'%')->paginate(27);
         $userRecipe = Recipe::where(['username' => auth()->user()->username, 'category' => 'Concoction'])->get();
-        return view('medicine.index', ['routes' => 'Medicine List', 'items' => $Items, 'userRecipe' => $userRecipe, 'overlay' => '', 'signa' => SignaMaster::orderBy('signa_nama')->get(), 'views' => 'ALL']);
+        return view('medicine.index', ['routes' => 'Medicine List', 'items' => $Items, 'userRecipe' => $userRecipe, 'overlay' => '', 'signa' => SignaMaster::orderBy('signa_nama')->get(), 'views' => 'ALL', 'aVData' => []]);
     }
 
     public function viewsMedicine($obatalkes_id){
         $Items = ObAlkes::where('obatalkes_id', $obatalkes_id)->paginate(27);
         $userRecipe = Recipe::where(['username' => auth()->user()->username, 'category' => 'Concoction'])->get();
-        return view('medicine.index', ['routes' => 'Medicine List', 'items' => $Items, 'userRecipe' => $userRecipe, 'overlay' => 'new', 'signa' => SignaMaster::orderBy('signa_nama')->get(), 'views' => 'ALL']);
+        return view('medicine.index', ['routes' => 'Medicine List', 'items' => $Items, 'userRecipe' => $userRecipe, 'overlay' => 'new', 'signa' => SignaMaster::orderBy('signa_nama')->get(), 'views' => 'ALL', 'aVData' => []]);
     }
     
     public function PutMedicine($obatalkes_id){
         $Items = ObAlkes::where('obatalkes_id', $obatalkes_id)->paginate(27);
         $userRecipe = Recipe::where(['username' => auth()->user()->username, 'category' => 'Concoction'])->get();
-        return view('medicine.index', ['routes' => 'Medicine List', 'items' => $Items, 'userRecipe' => $userRecipe, 'overlay' => 'existing', 'signa' => SignaMaster::orderBy('signa_nama')->get(), 'views' => 'ALL']);
+        return view('medicine.index', ['routes' => 'Medicine List', 'items' => $Items, 'userRecipe' => $userRecipe, 'overlay' => 'existing', 'signa' => SignaMaster::orderBy('signa_nama')->get(), 'views' => 'ALL', 'aVData' => []]);
     }
 
     public function saveSchema(Request $request){
@@ -64,6 +64,24 @@ class MedicineController extends Controller
         return redirect('/medicine-list')->with('post-success','Successfull to add new medicine to sheet ' . $retrieveData['recipename'] . ' with category ' . $retrieveData['category']);
     }
     
+    public function MedicineResolver(Request $request){
+        $retrieveData = $request->validate([
+            'category' => 'required',
+            'quantity' => 'required',
+            'signa' => 'required',
+            'id' => 'required'
+        ]);
+        $Items = ObAlkes::where('obatalkes_id', $retrieveData['id'])->get();
+        if ($retrieveData['category'] == 'Order as recipe list'){
+            $userRecipe = Recipe::where(['username' => auth()->user()->username, 'category' => 'Concoction'])->get();
+            if ($userRecipe->count()){
+                return view('medicine.index', ['routes' => 'Medicine List', 'items' => $Items, 'userRecipe' => $userRecipe, 'overlay' => 'existing recipe', 'signa' => SignaMaster::orderBy('signa_nama')->get(), 'views' => 'SPECIFIC', 'aVData' => $retrieveData]);
+            }
+            return view('medicine.index', ['routes' => 'Medicine List', 'items' => $Items, 'userRecipe' => $userRecipe, 'overlay' => 'new recipe', 'signa' => SignaMaster::orderBy('signa_nama')->get(), 'views' => 'SPECIFIC', 'aVData' => $retrieveData]);
+        }
+        return back()->with(['routes' => 'Medicine List', 'items' => $Items, 'userRecipe' => '', 'overlay' => 'non recipe', 'signa' => SignaMaster::orderBy('signa_nama')->get(), 'views' => 'SPECIFIC', 'aVData' => $retrieveData]);
+    }
+
     public function ConSchema(Request $request){
         
     }
@@ -72,6 +90,6 @@ class MedicineController extends Controller
         $Items = ObAlkes::where('obatalkes_id', $obatalkes_id)->get();
         $userRecipe = Recipe::where(['username' => auth()->user()->username, 'category' => 'Concoction'])->get();
         
-        return view('medicine.index', ['routes' => 'Medicine List', 'items' => $Items, 'userRecipe' => $userRecipe, 'overlay' => '', 'signa' => SignaMaster::orderBy('signa_nama')->get(), 'views' => 'SPECIFIC']);
+        return view('medicine.index', ['routes' => 'Medicine List', 'items' => $Items, 'userRecipe' => $userRecipe, 'overlay' => '', 'signa' => SignaMaster::orderBy('signa_nama')->get(), 'views' => 'SPECIFIC', 'aVData' => []]);
     }
 }

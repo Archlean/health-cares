@@ -41,7 +41,7 @@ class RecipeController extends Controller
             'username' => auth()->user()->username,
             'category' => 'Concoction',
             'recipe_name' => $retrieveData['recipename'],
-            'recipe_detail' => '',
+            'recipe_detail' => json_encode([]),
             'quantity' => '1',
             'signa_recipe' => $retrieveData['signa'],
         ];
