@@ -8,56 +8,120 @@
             <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
             </div>
         @endif
-        @if (session()->has('medicine-only-add-success'))
+        @if ($infomessage != 'nomessage')
             <div class="alert alert-success alert-dismissible fade show d-flex justify-content-center w-100" style="height: fit-content; width:fit-content" role="alert">
-            <small class="d-block text-center"> {{ session('medicine-only-add-success') }} </small>
+            <small class="d-block text-center"> {{ $infomessage }} </small>
             <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
             </div>
         @endif
 
         @if ($overlay == 'new recipe')
-            <div style="position: fixed; color:white; width: 100%; height: 100%; top: 0; left: 0; right: 0; bottom: 0; background-color: rgba(0,0,0,0.9); z-index: 2;">
+        
+            <div style="position: fixed; color:white; width: 100%; height: 100%; top: 0; left: 0; right: 0; bottom: 0; background-color: rgba(0,0,0,0.9); z-index: 12;">
                 <div class="container">
-                    <div class="card">
+                    <div class="card d-flex justify-content-center mt-5">
                         <div class="card-title mt-3">
-                            <h1><strong>Create your sheet recipe</strong></h1>
+                            <h1 class="text-dark text-center"><strong>Create recipe configuration</strong></h1>
                         </div>
                         <div class="card-body">
-                            <main class="form-registration mt-1">    
-                                <form action="/new-recipe/save" method="post" class="hstack gap-2 mb-4">
+                            <div class="row justify-content-center">
+                                <div class="col-md-12">
+                                    <main class="form-registration mt-1">    
+                                        <form action="/medicine-list/info/order-save/new-recipe" method="post" class="hstack gap-2 mb-4">
+                                            @csrf
+                                            <div class="card">
+                                                <div class="card-body">
+                                                    <h5 class="card-title text-dark">Create new {{ $routes }} recipes</h5>
+                                                    <div class="form-floating">
+                                                        <input type="text" name="recipename" class="form-control" id="recipename" placeholder="recipe name" required">
+                                                        <label class="text-dark" for="recipename">Recipe name</label>
+                                                    </div>
+                                                    <p class="text-dark mt-4">Signa:</p>
+                                                    <div class="input-group mb-3">
+                                                        <select class="form-select" id="signa" name='signa'>
+                                                            @foreach ($signa as $sign)
+                                                                <option value="{{ $sign->signa_nama }}">{{ $sign->signa_nama }}</option>
+                                                            @endforeach
+                                                        </select>
+                                                    </div>
+                                                    <input type="text" hidden name="medcode" id="medcode" value="{{ $items[0]->obatalkes_id }}">
+                                                    <input type="text" hidden name="quantity" id="quantity" value="{{ $arData['quantity'] }}">
+                                                    <button class="w-100 btn btn-lg btn-primary mt-2" type="submit">Add Recipe</button>
+                                                    <a href="/medicine-list/info/{{ $arData['id'] }}" class="text-danger">Back</a>
+                                                </div>
+                                            </div>
+                                        </form>
+                                    </main>
+                                </div>
+                            </div>
+                            <p class="text-warning text-center mt-3">notes: you not have any recipe list, please create one recipe before adding any medicine</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            
+        @endif
+        @if ($overlay == 'existing recipe')
+            
+            <div style="position: fixed; color:white; width: 100%; height: 100%; top: 0; left: 0; right: 0; bottom: 0; background-color: rgba(0,0,0,0.9); z-index: 12;">
+                <div class="container">
+                    <div class="card d-flex justify-content-center mt-5">
+                        <div class="card-title mt-3">
+                            <h4 class="text-dark text-center"><strong>Select your recipt list</strong></h3>
+                        </div>
+                        <div class="card-body">
+                            <main>
+                                <form action="/medicine-list/info/order-save/modified-recipe" method="post">
                                     @csrf
-                                    <div class="card mb-3">
-                                        <img src="https://source.unsplash.com/800x400?storage" class="card-img-top" alt="...">
-                                        <div class="card-body">
-                                            <h5 class="card-title text-dark">Create new {{ $routes }} recipes</h5>
-                                            <div class="form-floating">
-                                                <input type="text" name="recipename" class="form-control" id="recipename" placeholder="recipe name" required">
-                                                <label class="text-dark" for="recipename">Recipe name</label>
+                                    <div class="row">
+                                        <div class="card">
+                                            <div class="card-title text-center text-dark mt-2">
+                                                <h5>Recipe list information</h5>
                                             </div>
-                                            <p class="text-dark mt-4">Signa:</p>
-                                            <div class="input-group mb-3">
-                                                <select class="form-select" id="signa" name='signa'>
-                                                    @foreach ($signa as $sign)
-                                                        <option value="{{ $sign->signa_nama }}">{{ $sign->signa_nama }}</option>
-                                                    @endforeach
-                                                </select>
+                                            <div class="card-body">
+                                                <div class="row">
+                                                    <div class="col-lg-2 mt-2">
+                                                        <p class="text-dark">Select recipe</p>
+                                                    </div>
+                                                    <div class="col-lg-10"><select class="form-select" id="recipename" name='recipename'>
+                                                        @foreach ($userRecipe as $recipe)
+                                                            <option value="{{ $recipe->recipe_name }}">{{ $recipe->recipe_name }}</option>
+                                                        @endforeach
+                                                    </select>
+                                                    </div>
+                                                </div>
                                             </div>
-                                            <button class="w-100 btn btn-lg btn-primary mt-2" type="submit">Add Recipe</button>
-                                            <a href="/recipe" class="text-danger">Back</a>
+                                        </div>
+                                        <div class="col-lg-4 mt-2">
+                                            <img src="https://source.unsplash.com/300x200?{{ $items[0]->obatalkes_nama }}" class="card-img-top" alt="{{ $items[0]->obatalkes_nama }}">
+                                        </div>
+                                        <div class="col-lg-8 mt-2">
+                                            <h5 class="fs-5 text-dark mb-4 ">Medicine information</h5>
+                                            <div class="row">
+                                                <div class="col-lg-3">
+                                                    <p class="text-dark">Medicine name</p>
+                                                </div>
+                                                <div class="col-lg-9">
+                                                    <input readonly class="w-100" type="text" name="medname" id="medname" value="{{ $items[0]->obatalkes_nama }}">
+                                                </div>
+                                                <div class="col-lg-3">
+                                                    <p class="text-dark">Medicine Quantity</p>
+                                                </div>
+                                                <div class="col-lg-9">
+                                                    <input readonly class="w-100" type="text" name="quantity" id="quantity" value="{{ $arData['quantity'] }}">
+                                                </div>
+                                            </div>
+                                            <input readonly hidden class="w-100" type="text" name="medcode" id="medcode" value="{{ $arData['id'] }}">
+                                            <div class="row d-flex justify-content-center">
+                                                <button class="w-100 btn btn-lg btn-primary" type="submit">Add Medicine</button>
+                                                <a href="/medicine-list/info/{{ $arData['id'] }}" class="text-danger fs-4 d-flex justify-content-center mt-2">Cancel</a>
+                                            </div>
                                         </div>
                                     </div>
                                 </form>
                             </main>
                         </div>
                     </div>
-                </div>
-            </div>
-        @endif
-        @if ($overlay == 'existing recipe')
-            
-            <div style="position: fixed; color:white; width: 100%; height: 100%; top: 0; left: 0; right: 0; bottom: 0; background-color: rgba(0,0,0,0.9); z-index: 2;">
-                <div class="container">
-                    <h1>Select the recipe you want</h1>
                 </div>
             </div>
 
@@ -125,17 +189,7 @@
         <h1 class="mb-5 text-center"> {{ $routes }} | Explore our extensive medicine </h1>
         
         @if ($items->count())
-                
-            <!--<div class="card mb-3">
-                <img src="https://source.unsplash.com/1200x400? $items[0]->obatalkes_nama }}" class="card-img-top" alt="$items[0]->obatalkes_nama }}">
-                <div class="card-body">
-                    <h5 class="card-title"> $items[0]->obatalkes_nama }}</h5>
-                    <p class="card-text"> Lorem ipsum dolor sit amet consectetur, adipisicing elit. Optio et dolorum ipsum unde? Accusamus reiciendis mollitia ab, est odit, in reprehenderit quidem ut nesciunt illo quos. Similique laudantium, qui nobis dolores sunt rerum sint repudiandae repellendus nihil nemo. Facilis dolores veniam similique exercitationem delectus numquam consequatur nostrum est fuga, molestiae laboriosam doloribus nesciunt dolorem quasi sed minima accusamus at id corporis, repudiandae obcaecati animi. Porro voluptatem obcaecati fugit? Corporis magni obcaecati voluptatibus voluptate, distinctio illum labore quibusdam ipsum provident libero sapiente modi fuga? Rerum cumque accusantium nobis tenetur placeat eveniet obcaecati, suscipit modi unde distinctio? Molestiae deleniti illum recusandae sunt ea incidunt odit ipsa sint, doloribus dolores a possimus veniam! Alias ea officia quae neque adipisci maxime eligendi quidem perspiciatis? </p>
-                    <p class="card-text"><small>Stock available intval($items[0]->stok) }}</small> </p>
-                    <a href="/new-recipe" class="btn btn-primary">Create recipe now</a>
-                </div>
-            </div>-->
-            
+        
             @if ($views == 'SPECIFIC')
                     
                 <div class="container">
