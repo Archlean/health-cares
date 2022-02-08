@@ -33,7 +33,7 @@
             </a>
             <ul class="dropdown-menu" aria-labelledby="navbarDropdown">
               <!-- <li><a class="dropdown-item" href="/dashboard"><i class="bi bi-archive"></i> | Dashboard</a></li> -->
-              <li><a class="dropdown-item" href="/cart"><i class="bi bi-list-task"></i> | My recipes</a></li>
+              <li><a class="dropdown-item" href="/user-recipe"><i class="bi bi-list-task"></i> | My recipes</a></li>
               <li><hr class="dropdown-divider"></li>
               <li>
                   <form action="/logout" method="post">

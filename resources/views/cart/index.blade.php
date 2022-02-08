@@ -24,13 +24,13 @@
                   <td>{{ $myrecipe->signa_recipe }}</td>
                   <td>{{ $myrecipe->quantity }}</td>
                   <td>
-                    <a href="" class="badge bg-info">
+                    <a href="/user-recipe/scheme/{{ $myrecipe->id }}" class="badge bg-info">
                       <i class="bi bi-eye"></i>
                     </a>
-                    <a href="" class="badge bg-warning">
+                    <a href="user-recipe/print/{{ $myrecipe->id }}" class="badge bg-warning">
                       <i class="bi bi-printer"></i>
                     </a>
-                    <a href="" class="badge bg-danger">
+                    <a href="user-recipe/delete/{{ $myrecipe->id }}" class="badge bg-danger">
                       <i class="bi bi-trash"></i>
                     </a>
                   </td>

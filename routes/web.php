@@ -38,11 +38,7 @@ Route::post('/register', [RegisterController::class, 'save'])->middleware('guest
 
 Route::get('/dashboard', [DashboardController::class, 'index'])->middleware('auth');
 Route::get('/recipe', [RecipeController::class, 'recipeMixer'])->middleware('auth');
-Route::get('/cart', [CartController::class, 'index'])->middleware('auth');
 Route::get('/new-recipe', [RecipeController::class, 'index'])->middleware('auth');
-Route::get('/new-recipe/include/{obatalkes_id}', [RecipeController::class, 'recipeMixerData'])->middleware('auth');
-Route::get('/new-recipe/recipe-non-concoction', [RecipeController::class, 'createRecipeNconcoction'])->middleware('auth');
-Route::get('/new-recipe/recipe-concoction', [RecipeController::class, 'createRecipeConcoction'])->middleware('auth');
 
 Route::get('/medicine-list', [MedicineController::class, 'index'])->middleware('auth');
 Route::get('/medicine-list/search', [MedicineController::class, 'findMedicine'])->middleware('auth');
@@ -53,7 +49,15 @@ Route::post('/medicine-list/info/order-save/', [MedicineController::class, 'Medi
 Route::post('/medicine-list/info/order-save/medicine', [MedicineController::class, 'SaveOrderMedicineOnly'])->middleware('auth');
 Route::post('/medicine-list/info/order-save/new-recipe', [MedicineController::class, 'SaveNewRecipe'])->middleware('auth');
 Route::post('/medicine-list/info/order-save/modified-recipe', [MedicineController::class, 'ModifiedDetailRecipe'])->middleware('auth');
+Route::post('/medicine/save-new', [MedicineController::class, 'saveSchema'])->middleware('auth');
 
+Route::get('/new-recipe/include/{obatalkes_id}', [RecipeController::class, 'recipeMixerData'])->middleware('auth');
+Route::get('/new-recipe/recipe-non-concoction', [RecipeController::class, 'createRecipeNconcoction'])->middleware('auth');
+Route::get('/new-recipe/recipe-concoction', [RecipeController::class, 'createRecipeConcoction'])->middleware('auth');
 Route::post('/new-recipe/save/{category}', [RecipeController::class, 'saveRecipe'])->middleware('auth');
 Route::post('/new-recipe/save', [RecipeController::class, 'saveRecipeOnly'])->middleware('auth');
-Route::post('/medicine/save-new', [MedicineController::class, 'saveSchema'])->middleware('auth');
+
+Route::get('/user-recipe', [CartController::class, 'index'])->middleware('auth');
+Route::get('/user-recipe/scheme/{id}', [CartController::class, 'showDetail'])->middleware('auth');
+Route::get('/user-recipe/print/{id}', [CartController::class, 'PrintDetail'])->middleware('auth');
+Route::get('/user-recipe/delete/{id}', [CartController::class, 'DeleteScheme'])->middleware('auth');
