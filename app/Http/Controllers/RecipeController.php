@@ -39,11 +39,11 @@ class RecipeController extends Controller
         
         $fewsData = [
             'username' => auth()->user()->username,
-            'category' => 'Concoction',
+            'category' => 'recipe / concoction',
             'recipe_name' => $retrieveData['recipename'],
             'recipe_detail' => json_encode([]),
-            'quantity' => '1',
             'signa_recipe' => $retrieveData['signa'],
+            'quantity' => '1'
         ];
         
         Recipe::create($fewsData);

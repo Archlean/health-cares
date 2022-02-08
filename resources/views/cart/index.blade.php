@@ -23,6 +23,17 @@
                   <td>{{ $myrecipe->recipe_name }}</td>
                   <td>{{ $myrecipe->signa_recipe }}</td>
                   <td>{{ $myrecipe->quantity }}</td>
+                  <td>
+                    <a href="" class="badge bg-info">
+                      <i class="bi bi-eye"></i>
+                    </a>
+                    <a href="" class="badge bg-warning">
+                      <i class="bi bi-printer"></i>
+                    </a>
+                    <a href="" class="badge bg-danger">
+                      <i class="bi bi-trash"></i>
+                    </a>
+                  </td>
                 </tr>
               @endforeach
             </tbody>

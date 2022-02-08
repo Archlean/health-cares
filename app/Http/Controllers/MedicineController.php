@@ -7,7 +7,6 @@ use App\Models\Recipe;
 use App\Models\ObAlkes;
 use App\Models\SignaMaster;
 use DateTime;
-use SebastianBergmann\Environment\Console;
 
 class MedicineController extends Controller
 {
@@ -145,10 +144,6 @@ class MedicineController extends Controller
             return view('medicine.index', ['routes' => 'Medicine List', 'items' => $Items, 'userRecipe' => $userRecipe, 'overlay' => 'new recipe', 'signa' => SignaMaster::orderBy('signa_nama')->get(), 'views' => 'SPECIFIC', 'arData' => $retrieveData, 'infomessage' => 'nomessage']);
         }
         return view('medicine.index', ['routes' => 'Medicine List', 'items' => $Items, 'userRecipe' => $userRecipe, 'overlay' => 'non recipe', 'signa' => SignaMaster::orderBy('signa_nama')->get(), 'views' => 'SPECIFIC', 'arData' => $retrieveData, 'infomessage' => 'nomessage']);
-    }
-
-    public function ConSchema(Request $request){
-        
     }
 
     public function singleMedicineInfo($obatalkes_id){
