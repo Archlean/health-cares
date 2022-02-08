@@ -50,6 +50,7 @@ Route::get('/medicine-list/config-medicine/{obatalkes_id}', [MedicineController:
 Route::get('/medicine-list/find-receipt', [MedicineController::class, 'findMedicine'])->middleware('auth');
 Route::get('/medicine-list/info/{obatalkes_id}', [MedicineController::class, 'singleMedicineInfo'])->middleware('auth');
 Route::post('/medicine-list/info/order-save/', [MedicineController::class, 'MedicineResolver'])->middleware('auth');
+Route::post('/medicine-list/info/order-save/medicine', [MedicineController::class, 'SaveOrderMedicineOnly'])->middleware('auth');
 
 Route::post('/new-recipe/save/{category}', [RecipeController::class, 'saveRecipe'])->middleware('auth');
 Route::post('/new-recipe/save', [RecipeController::class, 'saveRecipeOnly'])->middleware('auth');

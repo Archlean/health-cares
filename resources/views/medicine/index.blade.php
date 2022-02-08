@@ -8,6 +8,12 @@
             <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
             </div>
         @endif
+        @if (session()->has('medicine-only-add-success'))
+            <div class="alert alert-success alert-dismissible fade show d-flex justify-content-center w-100" style="height: fit-content; width:fit-content" role="alert">
+            <small class="d-block text-center"> {{ session('medicine-only-add-success') }} </small>
+            <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+            </div>
+        @endif
 
         @if ($overlay == 'new recipe')
             <div style="position: fixed; color:white; width: 100%; height: 100%; top: 0; left: 0; right: 0; bottom: 0; background-color: rgba(0,0,0,0.9); z-index: 2;">
@@ -60,7 +66,57 @@
             
             <div style="position: fixed; color:white; width: 100%; height: 100%; top: 0; left: 0; right: 0; bottom: 0; background-color: rgba(0,0,0,0.9); z-index: 12;">
                 <div class="container">
-                    <h1>{{ $aVData }}</h1>
+                    <div class="card d-flex justify-content-center mt-5">
+                        <div class="card-title mt-3">
+                            <h4 class="text-dark text-center"><strong>Order result</strong></h3>
+                        </div>
+                        <div class="card-body">
+                            <div class="row">
+                                <div class="col-lg-4">
+                                    <img src="https://source.unsplash.com/300x200?{{ $items[0]->obatalkes_nama }}" class="card-img-top" alt="{{ $items[0]->obatalkes_nama }}">
+                                </div>
+                                <div class="col-lg-8">
+                                    <h5 class="fs-5 text-dark mb-4">Scheme Detail</h5>
+                                    <main>
+                                        <form action="/medicine-list/info/order-save/medicine" method="post">
+                                            @csrf
+                                            <div class="row">
+                                                <div class="col-lg-3">
+                                                    <p class="text-dark">Scheme name</p>
+                                                </div>
+                                                <div class="col-lg-9">
+                                                    <input readonly class="w-100" type="text" name="schemname" id="schemname" value="{{ $arData['orderScheme'] }}">
+                                                </div>
+                                                <div class="col-lg-3">
+                                                    <p class="text-dark">Medicine name</p>
+                                                </div>
+                                                <div class="col-lg-9">
+                                                    <input readonly class="w-100" type="text" name="medname" id="medname" value="{{ $items[0]->obatalkes_nama }}">
+                                                </div>
+                                                <div class="col-lg-3">
+                                                    <p class="text-dark">Signa information</p>
+                                                </div>
+                                                <div class="col-lg-9">
+                                                    <input readonly class="w-100" type="text" name="signa" id="signa" value="{{ $arData['signa'] }}">
+                                                </div>
+                                                <div class="col-lg-3">
+                                                    <p class="text-dark">Recipe Quantity</p>
+                                                </div>
+                                                <div class="col-lg-9">
+                                                    <input readonly class="w-100" type="text" name="quantity" id="quantity" value="{{ $arData['quantity'] }}">
+                                                </div>
+                                            </div>
+                                            <input readonly hidden class="w-100" type="text" name="medcode" id="medcode" value="{{ $arData['id'] }}">
+                                            <div class="row d-flex justify-content-center">
+                                                <button class="w-100 btn btn-lg btn-primary" type="submit">Order</button>
+                                                <a href="/medicine-list/info/{{ $arData['id'] }}" class="text-danger fs-4 d-flex justify-content-center mt-2">Cancel</a>
+                                            </div>
+                                        </form>
+                                    </main>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
                 </div>
             </div>
             
@@ -139,60 +195,60 @@
                                                     <form action="/medicine-list/info/order-save" method="post">
                                                         @csrf
                                                         <div class="card-body">
-                                                            <div class="form-check">
-                                                                <input class="form-check-input" type="radio" name="category" id="recipelist">
-                                                                <label class="form-check-label" for="recipelist">
-                                                                Order as recipe list
-                                                                </label>
+                                                            <!-- Radio Order Categoy 1  -->
+                                                            <div class="radio">
+                                                                {!! Form::radio('category', 'Order as self medicine', true, ['id' => 'category1']) !!}
+                                                                {!! Form::label('category1', 'Order as self medicine') !!}
                                                             </div>
-                                                            <div class="form-check">
-                                                                <input class="form-check-input" type="radio" name="category" id="selfmedicine" checked>
-                                                                <label class="form-check-label" for="selfmedicine">
-                                                                Order as self medicine
-                                                                </label>
+                                                            <!-- Radio Order Categoy 2 -->
+                                                            <div class="radio">
+                                                                {!! Form::radio('category', 'Order as recipe list', false, ['id' => 'category2']) !!}
+                                                                {!! Form::label('category2', 'Order as recipe list') !!}
                                                             </div>
-                                                            <p class="text-dark">Quantity:</p>
+                                                            <p class="text-dark mt-3">Quantity:</p>
+                                                            <!-- Quantity Selection -->
                                                             <div class="input-group mb-2">
                                                                 <button class="btn bg-danger ms-auto text-white" onclick="decrement()" type="button">
-                                                                        -
-                                                                        <script>
-                                                                            function decrement(){
-                                                                                var maxLimit = parseInt(document.getElementById("quantity").max);
-                                                                                var currentNumber = parseInt(document.getElementById("quantity").value);
-                                                                                if (currentNumber > 1){
-                                                                                    currentNumber--;
-                                                                                }
-                                                                                else if (currentNumber > maxLimit){
-                                                                                    currentNumber = maxLimit;
-                                                                                }
-                                                                                else if (currentNumber < 1){
-                                                                                    currentNumber = 1;
-                                                                                }
-                                                                                document.getElementById("quantity").value = currentNumber;
+                                                                    -
+                                                                    <script>
+                                                                        function decrement(){
+                                                                            var maxLimit = parseInt(document.getElementById("quantity").max);
+                                                                            var currentNumber = parseInt(document.getElementById("quantity").value);
+                                                                            if (currentNumber > 1){
+                                                                                currentNumber--;
                                                                             }
-                                                                        </script>
-                                                                    </button>
-                                                                <input readonly disabled type="text" id="quantity" name="quantity" placeholder="quantity" class="form-control input-number w-20 mw-20" value="1" min="1" max="{{ intval($items[0]->stok) }}">
+                                                                            else if (currentNumber > maxLimit){
+                                                                                currentNumber = maxLimit;
+                                                                            }
+                                                                            else if (currentNumber < 1){
+                                                                                currentNumber = 1;
+                                                                            }
+                                                                            document.getElementById("quantity").value = currentNumber;
+                                                                        }
+                                                                    </script>
+                                                                </button>
+                                                                <input readonly type="text" id="quantity" name="quantity" placeholder="quantity" class="form-control text-ceter input-number w-20 mw-20" value="1" min="1" max="{{ intval($items[0]->stok) }}">
                                                                 <button class="btn bg-primary text-white" onclick="increment()" type="button">
-                                                                        +
-                                                                        <script>
-                                                                            function increment(){
-                                                                                var maxLimit = parseInt(document.getElementById("quantity").max);
-                                                                                var currentNumber = parseInt(document.getElementById("quantity").value);
-                                                                                if (currentNumber < maxLimit){
-                                                                                    currentNumber++;
-                                                                                }
-                                                                                else if (currentNumber < 1){
-                                                                                    currentNumber = 1;
-                                                                                }
-                                                                                else if (currentNumber > maxLimit){
-                                                                                    currentNumber = maxLimit;
-                                                                                }
-                                                                                document.getElementById("quantity").value = currentNumber;
+                                                                    +
+                                                                    <script>
+                                                                        function increment(){
+                                                                            var maxLimit = parseInt(document.getElementById("quantity").max);
+                                                                            var currentNumber = parseInt(document.getElementById("quantity").value);
+                                                                            if (currentNumber < maxLimit){
+                                                                                currentNumber++;
                                                                             }
-                                                                        </script>
+                                                                            else if (currentNumber < 1){
+                                                                                currentNumber = 1;
+                                                                            }
+                                                                            else if (currentNumber > maxLimit){
+                                                                                currentNumber = maxLimit;
+                                                                            }
+                                                                            document.getElementById("quantity").value = currentNumber;
+                                                                        }
+                                                                    </script>
                                                                 </button>
                                                             </div>
+                                                            <!-- Sign Selection -->
                                                             <div class="mt-2">
                                                                 <p class="text-dark">Signa:</p>
                                                                 <div class="input-group mb-3">
@@ -207,7 +263,7 @@
                                                                 </div>
                                                             </div>
                                                             <div class="mb-2">
-                                                                <input type="text" readonly disabled hidden value="{{ $items[0]->obatalkes_id }}" name="id" placeholder="id" id="id">
+                                                                <input type="text" readonly hidden value="{{ $items[0]->obatalkes_id }}" name="id" placeholder="id" id="id">
                                                             </div>
                                                             <button class="w-100 btn btn-lg btn-primary" type="submit">Order</button>
                                                         </div>
