@@ -75,12 +75,11 @@ class MedicineController extends Controller
             'quantity' => 'required'
         ]);
         
-        $userRecipe = Recipe::where(['username' => auth()->user()->username, 'category' => 'recipe / concoction'])->get();
+        $userRecipe = Recipe::where(['username' => auth()->user()->username, 'category' => 'recipe / concoction', 'recipe_name' => $retrieveData['recipename']])->get();
         $Items = ObAlkes::where('obatalkes_id', $retrieveData['medcode'])->get();
-
-        $detalData = json_decode($userRecipe[0]->recipe_detail, TRUE);
-        $newData = ['id'=>$retrieveData['medcode'],'name'=>$Items[0]->obatalkes_nama,'quantity'=>$retrieveData['quantity']];
-
+        $detalData = array(json_decode($userRecipe[0]->recipe_detail, true));
+        $newData = array('id'=>$retrieveData['medcode'], 'name'=>$Items[0]->obatalkes_nama, 'quantity'=>$retrieveData['quantity']);
+        
         array_push($detalData, $newData);
         
         $stok = intval($Items[0]->stok);
